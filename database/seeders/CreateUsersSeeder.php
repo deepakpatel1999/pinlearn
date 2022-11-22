@@ -41,7 +41,7 @@ class CreateUsersSeeder extends Seeder
               'user_name' => 'deepak',
               'timezone' => 'test',
               'email' => 'admin@gmail.com',
-              'email_verified_at' => 'admin@gmail.com',
+              'email_verified_at' => '1',
               'password' => bcrypt('12345678'),
               'image' => 'test.png',
               'Zoom_activation' => 'test',
@@ -59,14 +59,14 @@ class CreateUsersSeeder extends Seeder
               'in_hone_page' => '1',
               'featured' => '1',
             ],
-            
+
             [
                 'name' => 'Tutor',
-                'type' => '1',
+                'type' => '2',
                 'user_name' => 'dipesh',
                 'timezone' => 'test',
                 'email' => 'tutor@gmail.com',
-                'email_verified_at' => 'tutor@gmail.com',
+                'email_verified_at' => '1',
                 'password' => bcrypt('12345678'),
                 'image' => 'test.png',
                 'Zoom_activation' => 'test',
@@ -86,11 +86,11 @@ class CreateUsersSeeder extends Seeder
             ],
             [
                 'name' => 'User',
-                'type' => '1',
+                'type' => '3',
                 'user_name' => 'user',
                 'timezone' => 'test',
                 'email' => 'user@gmail.com',
-                'email_verified_at' => 'user@gmail.com',
+                'email_verified_at' => '1',
                 'password' => bcrypt('12345678'),
                 'image' => 'test.png',
                 'Zoom_activation' => 'test',
@@ -109,7 +109,7 @@ class CreateUsersSeeder extends Seeder
                 'featured' => '1',
             ],
           ];
-        
+
         foreach ($users as $key => $user) {
             User::create($user);
         }

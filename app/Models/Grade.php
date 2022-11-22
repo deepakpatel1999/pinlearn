@@ -12,8 +12,8 @@ class Grade extends Model
         'title',
         'alias',
         'ordering',
-        'schole_type'
-
+        'school_type',
+        'discription'
 
     ];
 }

@@ -21,10 +21,12 @@ return new class extends Migration
             $table->string('targe_type')->nullable();
             $table->string('discount_value')->nullable();
             $table->string('limit_number_of_use')->nullable();
+            $table->string('tutor_name')->nullable();
+            $table->string('courses_id')->nullable();
+            $table->string('webinar_id')->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->Integer('status')->default(1);
-
             $table->timestamps();
         });
     }

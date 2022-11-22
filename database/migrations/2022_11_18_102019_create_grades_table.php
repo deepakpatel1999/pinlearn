@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('alias')->nullable();
             $table->string('ordering')->nullable();
-            $table->string('schole_type')->nullable();
+
+            $table->enum('school_type', ['Elementary','Middle school','College'])->default('Elementary');
+            $table->string('discription')->nullable();
             $table->timestamps();
         });
     }

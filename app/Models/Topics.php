@@ -11,7 +11,6 @@ class Topics extends Model
     protected $fillable = [
         'name',
         'alias',
-        'categories_id',
         'ordering'
 
     ];

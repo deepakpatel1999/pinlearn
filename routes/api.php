@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ApiController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,11 +14,40 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [App\Http\Controllers\ApiController::class, 'login'])->name('login');
+Route::post('/login', [ApiController::class, 'login'])->name('login');
 
-// Route::post('/signup', [App\Http\Controllers\ApiController::class, 'signup'])->name('signup');
+Route::post('/signup', [App\Http\Controllers\ApiController::class, 'signup'])->name('signup');
 
+Route::post('/user-update-data', [ApiController::class, 'user_update_data'])->name('user-update-data');
+
+Route::get('/delete-data/{id}', [ApiController::class, 'delete_data'])->name('delete-data');
+
+Route::get('/gtade-get-data', [ApiController::class, 'gtade_get_data'])->name('gtade-get-data');
+
+Route::post('/grade-insert', [ApiController::class, 'grade_insert'])->name('grade-insert');
+
+Route::get('/grade-edit/{id}', [ApiController::class, 'grade_edit'])->name('grade-edit');
+
+Route::post('/grade-update-data', [ApiController::class, 'grade_update_data'])->name('grade-update-data');
+
+Route::get('/delete-grade/{id}', [ApiController::class, 'delete_grade'])->name('delete-grade');
+
+Route::post('/category-insert', [ApiController::class, 'category_insert'])->name('category-insert');
+
+Route::get('/category-get-data', [ApiController::class, 'category_get_data'])->name('category-get-data');
+
+Route::get('/category-edit/{id}', [ApiController::class, 'category_edit'])->name('category-edit');
+
+Route::post('/category-update-data', [ApiController::class, 'category_update_data'])->name('category-update-data');
+
+Route::get('/delete-category/{id}', [ApiController::class, 'delete_category'])->name('delete-category');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-   // Route::get('/inspirationp-get-data', [App\Http\Controllers\ApiController::class, 'inspiration_get_data'])->name('inspiration-get-data');
+
+ Route::get('/tutor-get-data', [ApiController::class, 'tutor_get_data'])->name('tutor-get-data');
+
+ Route::get('/user-get-data', [ApiController::class, 'user_get_data'])->name('user-get-data');
+
+ Route::get('/edit/{id}', [ApiController::class, 'edit'])->name('edit');
+
 });

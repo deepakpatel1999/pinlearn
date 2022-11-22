@@ -15,8 +15,6 @@ return new class extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categories_id');
-            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('name');
             $table->string('alias');
             $table->Integer('status')->default(1);

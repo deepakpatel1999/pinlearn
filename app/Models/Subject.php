@@ -11,7 +11,7 @@ class Subject extends Model
     protected $fillable = [
         'name',
         'alias',
-        'categories_id'
+        'status',
 
     ];
 }

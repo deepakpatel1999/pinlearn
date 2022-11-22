@@ -30,7 +30,7 @@ class User extends Authenticatable
         'password',
         'image',
         'Zoom_activation',
-       
+
         'Phone',
         'country',
         'city',
@@ -41,13 +41,13 @@ class User extends Authenticatable
         'commition_rate',
         'biography',
         'status',
-        
+
         'phone_verified_at',
         'in_hone_page',
         'featured'
     ];
 
-   
+
 
     /**
      * The attributes that should be hidden for serialization.

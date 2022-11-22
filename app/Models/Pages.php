@@ -12,6 +12,5 @@ class Pages extends Model
         'title',
         'alias',
         'content',
-
     ];
 }
