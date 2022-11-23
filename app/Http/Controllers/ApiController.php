@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Auth;
-
 use DB;
 use App\Models\User;
 use App\Models\Grade;
-use App\Models\Categories;
+use App\Models\Category;
+use App\Models\Subject;
+use App\Models\Category_subject;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Http\Request;
@@ -20,6 +21,9 @@ use App\Http\Resources\TutoreditResource as TutoreditResource;
 use App\Http\Resources\GradeResource as GradeResource;
 use App\Http\Resources\CategoryResource as CategoryResource;
 use App\Http\Resources\CategoryUpdateResource as CategoryUpdateResource;
+use App\Http\Resources\SubjectResorces as SubjectResorces;
+use App\Http\Resources\SubjectlistResource as SubjectlistResource;
+
 
 
 class ApiController extends BaseController
@@ -396,10 +400,10 @@ class ApiController extends BaseController
             $image = '';
         }
         $data_user = array('name' => $data['name'], 'alias' => $data['alias'], 'ordering' => $data['ordering'], 'image' => $image, 'status' => $data['status']);
-        $Categories = Categories::create($data_user);
+        $Category = Category::create($data_user);
 
-        if ($Categories) {
-            return $this->sendResponse(new CategoryResource($Categories), ' Category register successfully.');
+        if ($Category) {
+            return $this->sendResponse(new CategoryResource($Category), ' Category register successfully.');
             die();
         } else {
             return $this->sendError('Validation Error.', $validator->errors());
@@ -409,7 +413,7 @@ class ApiController extends BaseController
     //================ gtade get data====================//
     public function category_get_data(Request $request)
     {
-        $data = Categories::orderBy('id', 'desc')->get();
+        $data = Category::orderBy('id', 'desc')->get();
         if ($data) {
             return $this->sendResponse(CategoryResource::collection($data), 'Tutor retrieved successfully.');
             die();
@@ -421,7 +425,7 @@ class ApiController extends BaseController
     // =================== grade_edit ========================//
     public function category_edit($id)
     {
-        $data = Categories::find($id);
+        $data = Category::find($id);
         if (is_null($data)) {
             return $this->sendError('data not found.');
         }
@@ -455,9 +459,9 @@ class ApiController extends BaseController
         }
         $id = $data['id'];
         $data_user = array('name' => $data['name'], 'alias' => $data['alias'], 'ordering' => $data['ordering'], 'image' => $image, 'status' => $data['status']);
-        $Categories = Categories::where('id', $id)->update($data_user);
-        if ($Categories) {
-            return $this->sendResponse(new CategoryUpdateResource($Categories), 'category update successfully.');
+        $Category = Category::where('id', $id)->update($data_user);
+        if ($Category) {
+            return $this->sendResponse(new CategoryUpdateResource($Category), 'category update successfully.');
         } else {
             return $this->sendError('Validation Error.', $validator->errors());
             die();
@@ -467,12 +471,120 @@ class ApiController extends BaseController
     public function delete_category($id)
     {
         $id = $id;
-        $data = Categories::find($id)->delete();
+        $data = Category::find($id)->delete();
         if ($data) {
             return $this->sendResponse([], 'Data deleted successfully.');
             die();
         } else {
             return response()->json(array('status' => 'false', 'message' => 'Somthing went wrong'));
+            die();
+        }
+    }
+
+    public function subject_insert(Request $request)
+    {
+        $data = $request->all();
+        // dd($request['Category_id']);
+
+        $rules = [
+            'name' => 'required',
+            'alias' => 'required',
+            //'Category_id' => 'reruired',
+            'status'    => 'required',
+        ];
+        $validator = Validator::make($data, $rules);
+        $error_msg = $validator->errors()->first();
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+            die();
+        }
+        $data_user = array('name' => $data['name'], 'alias' => $data['alias'], 'status' => $data['status']);
+        $subject = Subject::create($data_user);
+        $category_id = $request['Category_id'];
+        $subject->categories()->attach($subject->id);
+
+        // foreach ($category_id as $category_ids) {
+        //     $Category_id =   $category_ids;
+        //     $subjects_id = $subject->id;
+        //     $data_u = array('subjects_id' => $subjects_id, 'Category_id' => $Category_id);
+        //     $subje = Category_subject::create($data_u);
+        // }
+        if ($subject) {
+            return $this->sendResponse(new SubjectResorces($subject), ' subject register successfully.');
+            die();
+        } else {
+            return $this->sendError('Validation Error.', $validator->errors());
+            die();
+        }
+    }
+    //================ subject_get_data get data====================//
+    public function subject_get_data(Request $request)
+    {
+        //  $categoryyy = Category::with('subjects')->get();
+        $categories = Subject::with('categories')->get();
+        //  $categoryyy->subjects()->attach($subject);
+        return $categories;
+
+        if ($categories) {
+
+            return $this->sendResponse(SubjectlistResource::collection($categories), 'subject retrieved successfully.');
+            die();
+        } else {
+            return response()->json(array('status' => 'false', 'data' => '', 'message' => 'not found data'));
+            die();
+        }
+    }
+
+    // =================== subject_edit ========================//
+    public function subject_edit($id)
+    {
+
+        $categories = Subject::with('categories')->find($id);
+        //return $categories;
+
+        if (is_null($categories)) {
+            return $this->sendError('data not found.');
+        }
+        return response()->json(array('status' => 'true', 'data' => $categories, 'message' => 'Data get Successfully'));
+    }
+
+    public function subject_update_data(Request $request)
+    {
+
+        $data = $request->all();
+        // dd($request['Category_id']);
+
+        $rules = [
+            'name' => 'required',
+            'alias' => 'required',
+            //'Category_id' => 'reruired',
+            'status'    => 'required',
+        ];
+        $validator = Validator::make($data, $rules);
+        $error_msg = $validator->errors()->first();
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+            die();
+        }
+        $data_user = array('name' => $data['name'], 'alias' => $data['alias'], 'status' => $data['status']);
+        $id = $request['id'];
+        $subject = Subject::where('id', $id)->update($data_user);
+        $Category_id = $request['Category_id'];
+        $subjects = Subject::find($id);
+        // Want to keep only Editor (Id 2) role
+        $subjects->categories()->sync($subjects);
+        // foreach ($Category_id as $Category_ids) {
+        //     $Category_id =   $Category_ids;
+        //     $subjects_id = $subject->id;
+        //     $data_u = array('subjects_id' => $subjects_id, 'Category_id' => $Category_id);
+        //     $subje = Category_subject::create($data_u);
+        // }
+        if ($subject) {
+            return response()->json(array('status' => 'true', 'data' => $subject, 'message' => 'Data update Successfully'));
+            //return $this->sendResponse(new SubjectResorces($subject), ' subject register successfully.');
+            die();
+        } else {
+            return $this->sendError('Validation Error.', $validator->errors());
             die();
         }
     }

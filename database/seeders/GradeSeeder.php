@@ -19,7 +19,7 @@ class GradeSeeder extends Seeder
               'title' => 'Grade 1',
               'alias' => 'Grade 1',
               'ordering' => '1',
-              'schole_type' => 'Elementary',
+              'school_type' => 'Elementary',
               'discription' => 'this is discription',
 
             ],
@@ -27,7 +27,7 @@ class GradeSeeder extends Seeder
                 'title' => 'Grade 2',
                 'alias' => 'Grade 2',
                 'ordering' => '1',
-                'schole_type' => 'Elementary',
+                'school_type' => 'Elementary',
                 'discription' => 'this is discription',
               ],
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Category_subject;
 
-class Category_subjectsSeeder extends Seeder
+class Category_subjectSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class Category_subjectsSeeder extends Seeder
      */
     public function run()
     {
-        $category_subject = [
+        $category_subjects = [
 
             [
                 'subjects_id' => '1',
@@ -37,8 +37,8 @@ class Category_subjectsSeeder extends Seeder
 
         ];
 
-        foreach ($category_subject as $key => $category_subjects) {
-            Category_subject::create($category_subjects);
+        foreach ($category_subjects as $key => $category_subject) {
+            Category_subject::create($category_subject);
         }
     }
 }

@@ -20,7 +20,7 @@ class TutorResource extends JsonResource
             'timezone' => $this['timezone'],
             'email' => $this['email'],
             'password' => $this['password'],
-            'image' => $this['image'],
+            'image' =>asset('/images/' .$this['image']),
 
             'Phone' => $this['Phone'],
             'country' => $this['country'],

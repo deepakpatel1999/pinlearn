@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class SubjectlistResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +19,10 @@ class CategoryResource extends JsonResource
             'name' => $this['name'],
             'alias' => $this['alias'],
             'ordering' => $this['ordering'],
-            'image' => asset('/images/' . $this->image),
+            'image' =>asset('/images/' .$this['image']),
             'status' => $this['status'],
-            'created_at' => $this->created_at->format('m/d/Y'),
-            'updated_at' => $this->updated_at->format('m/d/Y'),
+             'created_at' => $this->created_at->format('m/d/Y'),
+             'updated_at' => $this->updated_at->format('m/d/Y'),
           ];
-    }
+}
 }

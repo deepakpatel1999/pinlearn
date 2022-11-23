@@ -18,6 +18,12 @@ Route::post('/login', [ApiController::class, 'login'])->name('login');
 
 Route::post('/signup', [App\Http\Controllers\ApiController::class, 'signup'])->name('signup');
 
+Route::get('/tutor-get-data', [ApiController::class, 'tutor_get_data'])->name('tutor-get-data');
+
+Route::get('/user-get-data', [ApiController::class, 'user_get_data'])->name('user-get-data');
+
+Route::get('/edit/{id}', [ApiController::class, 'edit'])->name('edit');
+
 Route::post('/user-update-data', [ApiController::class, 'user_update_data'])->name('user-update-data');
 
 Route::get('/delete-data/{id}', [ApiController::class, 'delete_data'])->name('delete-data');
@@ -42,12 +48,15 @@ Route::post('/category-update-data', [ApiController::class, 'category_update_dat
 
 Route::get('/delete-category/{id}', [ApiController::class, 'delete_category'])->name('delete-category');
 
+Route::post('/subject-insert', [ApiController::class, 'subject_insert'])->name('subject-insert');
+
+Route::get('/subject-get-data', [ApiController::class, 'subject_get_data'])->name('subject-get-data');
+
+Route::get('/subject-edit/{id}', [ApiController::class, 'subject_edit'])->name('subject-edit');
+
+Route::post('/subject-update-data', [ApiController::class, 'subject_update_data'])->name('subject-update-data');
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
- Route::get('/tutor-get-data', [ApiController::class, 'tutor_get_data'])->name('tutor-get-data');
-
- Route::get('/user-get-data', [ApiController::class, 'user_get_data'])->name('user-get-data');
-
- Route::get('/edit/{id}', [ApiController::class, 'edit'])->name('edit');
 
 });

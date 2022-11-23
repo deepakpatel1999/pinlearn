@@ -10,7 +10,7 @@ use Database\Seeders\PermissionSeeder;
 use Database\Seeders\GradeSeeder;
 use Database\Seeders\CategoriesSeeder;
 use Database\Seeders\SubjectSeeder;
-use Database\Seeders\Category_subjectsSeeder;
+//use Database\Seeders\Category_subjectSeeder;
 use Database\Seeders\TopicSeeder;
 use Database\Seeders\Subject_topicSeeder;
 use Database\Seeders\Category_topicSeeder;
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GradeSeeder::class);
         $this->call(CategoriesSeeder::class);
         $this->call(SubjectSeeder::class);
-        $this->call(Category_subjectsSeeder::class);
+       // $this->call(Category_subjectSeeder::class);
         $this->call(TopicSeeder::class);
         $this->call(Subject_topicSeeder::class);
         $this->call(Category_topicSeeder::class);
