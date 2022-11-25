@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Topics;
+use App\Models\Topic;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -40,7 +40,7 @@ class TopicSeeder extends Seeder
           ];
 
         foreach ($topics as $key => $topic) {
-            Topics::create($topic);
+            Topic::create($topic);
         }
     }
 }

@@ -14,11 +14,10 @@ class Category_topicSeeder extends Seeder
      */
     public function run()
     {
-        $Category_topic = [
+        $category_topic = [
             [
                 'topics_id' => '1',
                 'categories_id' => '1',
-
 
 
             ],
@@ -36,8 +35,8 @@ class Category_topicSeeder extends Seeder
 
           ];
 
-        foreach ($Category_topic as $key => $Category_topics) {
-            Category_topic::create($Category_topics);
+        foreach ($category_topic as $key => $category_topics) {
+            Category_topic::create($category_topics);
         }
     }
 }

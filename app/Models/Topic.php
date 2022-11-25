@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Topics extends Model
+class Topic extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -14,4 +14,12 @@ class Topics extends Model
         'ordering'
 
     ];
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class);
+    }
 }

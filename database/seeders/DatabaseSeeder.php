@@ -39,8 +39,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SubjectSeeder::class);
        // $this->call(Category_subjectSeeder::class);
         $this->call(TopicSeeder::class);
-        $this->call(Subject_topicSeeder::class);
-        $this->call(Category_topicSeeder::class);
+        //$this->call(Subject_topicSeeder::class);
+       // $this->call(Category_topicSeeder::class);
         $this->call(CouponsSeeder::class);
         $this->call(PagesSeeder::class);
     }

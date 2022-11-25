@@ -21,4 +21,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Subject::class);
     }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class);
+    }
 }
