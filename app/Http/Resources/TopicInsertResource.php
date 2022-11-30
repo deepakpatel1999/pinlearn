@@ -15,12 +15,12 @@ class TopicInsertResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this['id'],
-            'name' => $this['name'],
-            'alias' => $this['alias'],
-            'ordering' => $this['ordering'],
-            'created_at' => $this->created_at->format('m/d/Y'),
-            'updated_at' => $this->updated_at->format('m/d/Y'),
+            //'id' => $request->id,
+            'name' => $request->name,
+            'alias' => $request->alias,
+            'ordering' => $request->ordering,
+            // 'created_at' => $this->created_at->format('m/d/Y'),
+            // 'updated_at' => $this->updated_at->format('m/d/Y'),
 
         ];
     }

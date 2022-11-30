@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             // $table->unsignedBigInteger('section_id');
             // $table->foreign('section_id')->references('id')->on('course_sections')->onDelete('cascade');
-            $table->integer('section_id')->nullable();
+            $table->integer('course_section_id')->nullable();
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('ordering')->nullable();

@@ -22,4 +22,8 @@ class Topic extends Model
     {
         return $this->belongsToMany(Subject::class);
     }
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }

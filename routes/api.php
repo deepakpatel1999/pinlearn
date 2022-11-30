@@ -7,7 +7,7 @@ use App\Http\Controllers\API\users\GradeController;
 use App\Http\Controllers\API\users\CategoryController;
 use App\Http\Controllers\API\users\SubjectController;
 use App\Http\Controllers\API\users\TopicController;
-
+use App\Http\Controllers\API\users\CourseController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,7 +69,13 @@ Route::post('/topic-insert', [TopicController::class, 'topic_insert'])->name('to
 
 Route::get('/topic-edit/{id}', [TopicController::class, 'topic_edit'])->name('topic-edit');
 
-Route::post('/topic-update-data', [SubjectController::class, 'topic_update_data'])->name('topic-update-data');
+Route::post('/topic-update-data', [TopicController::class, 'topic_update_data'])->name('topic-update-data');
+
+Route::get('/topic-delete/{id}', [TopicController::class, 'delete_topic'])->name('topic-delete');
+
+Route::post('/course-insert', [CourseController::class, 'course_insert'])->name('course-insert');
+
+Route::post('/add-section', [CourseController::class, 'add_section'])->name('add-section');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 

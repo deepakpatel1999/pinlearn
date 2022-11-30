@@ -16,4 +16,8 @@ class Grade extends Model
         'discription'
 
     ];
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
 }

@@ -52,7 +52,7 @@ class SubjectController extends BaseController
     {
         $categories = Subject::with('categories')->get();
 
-       // return $categories;
+        // return $categories;
 
         if ($categories) {
 

@@ -16,7 +16,8 @@ use Database\Seeders\Subject_topicSeeder;
 use Database\Seeders\Category_topicSeeder;
 use Database\Seeders\CouponsSeeder;
 use Database\Seeders\PagesSeeder;
-
+use Database\Seeders\CourseSeeder;
+use Database\Seeders\CourseSubjectSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -43,5 +44,7 @@ class DatabaseSeeder extends Seeder
        // $this->call(Category_topicSeeder::class);
         $this->call(CouponsSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(CourseSeeder::class);
+        //$this->call(CourseSubjectSeeder::class);
     }
 }

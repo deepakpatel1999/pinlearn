@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('end_of_my_course');
             $table->string('should_take');
+            $table->string('students_need');
+
             $table->timestamps();
         });
     }

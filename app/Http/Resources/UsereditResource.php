@@ -24,8 +24,8 @@ class UsereditResource extends JsonResource
             'Phone' => $this['Phone'],
             'address' => $this['address'],
             'status' => $this['status'],
-            // 'created_at' => $this->created_at->format('m/d/Y'),
-            // 'updated_at' => $this->updated_at->format('m/d/Y'),
+            'created_at' => $this->created_at->format('m/d/Y'),
+            'updated_at' => $this->updated_at->format('m/d/Y'),
           ];
     }
 }
