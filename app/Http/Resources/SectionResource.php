@@ -16,15 +16,11 @@ class SectionResource extends JsonResource
     {
         return [
             'id' => $this['id'],
-            'tutor_name' => $this['tutor_name'],
-            'price' => $this['price'],
-            'age' => $this['age'],
-            'introduction_video_link' => asset('/images/video' . $this['introduction_video_link']),
+            'course_id' => $this['course_id'],
+            'title' => $this['title'],
             'description' => $this['description'],
-            'cource_title' => $this['cource_title'],
-            'image' => asset('/images/' . $this['image']),
-            'end_of_my_course' => $this['end_of_my_course'],
-            'students_need' => $this['students_need'],
+            'ordering' => $this['ordering'],
+            'trial_video' => asset('/images/video' . $this['trial_video']),
             'created_at' => $this->created_at->format('m/d/Y'),
             'updated_at' => $this->updated_at->format('m/d/Y'),
         ];

@@ -112,9 +112,9 @@ class CourseController extends BaseController
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
             die();
+        } else {
             $section = array('course_id' => $data['course_id'], 'title' => $data['title'], 'description' => $data['description'], 'ordering' => $data['ordering'], 'trial_video' => $data['trial_video']);
             $section = Course_section::create($section);
-
             if ($section) {
                 return $this->sendResponse(new SectionResource($section), ' Section register successfully.');
                 die();
