@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 namespace App\Http\Controllers\API\users;
 use App\Http\Controllers\Controller;

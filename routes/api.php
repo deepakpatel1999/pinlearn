@@ -77,6 +77,12 @@ Route::post('/course-insert', [CourseController::class, 'course_insert'])->name(
 
 Route::post('/add-section', [CourseController::class, 'add_section'])->name('add-section');
 
+Route::post('/add-lecture', [CourseController::class, 'add_lecture'])->name('add-lecture');
+
+Route::post('/course-coupon', [CourseController::class, 'course_coupon'])->name('course-coupon');
+
+Route::get('/get-course', [CourseController::class, 'get_course'])->name('get-course');
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 

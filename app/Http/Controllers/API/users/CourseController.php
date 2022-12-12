@@ -8,12 +8,16 @@ use Auth;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\Course_section;
+use App\Models\Lecture;
+use App\Models\Course_coupons;
+use App\Models\User;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Validator;
 use App\Http\Resources\CourseResource as CourseResource;
 use App\Http\Resources\SectionResource as SectionResource;
-
+use App\Http\Resources\LectureResource as LectureResource;
+use App\Http\Resources\CourseCouponResource as CourseCouponResource;
 
 class CourseController extends BaseController
 {
@@ -23,7 +27,7 @@ class CourseController extends BaseController
         $data = $request->all();
 
         $rules = [
-            'tutor_name' => 'required',
+            'user_id' => 'required',
             'price' => 'required',
             'age'    => 'required',
             'introduction_video_link' => 'required',
@@ -70,7 +74,7 @@ class CourseController extends BaseController
         $topic_ids = Course::with('topics')->find($topic_id);
         $grade_ids = Course::with('grades')->find($grade_id);
 
-        $course = array('tutor_name' => $data['tutor_name'], 'price' => $data['price'], 'age' => $data['age'], 'introduction_video_link' => $introduction_video_link, 'description' => $data['description'], 'cource_title' => $data['cource_title'], 'image' => $image, 'end_of_my_course' => $data['end_of_my_course'], 'should_take' => $data['should_take'], 'students_need' => $data['students_need']);
+        $course = array('user_id' => $data['user_id'], 'price' => $data['price'], 'age' => $data['age'], 'introduction_video_link' => $introduction_video_link, 'description' => $data['description'], 'cource_title' => $data['cource_title'], 'image' => $image, 'end_of_my_course' => $data['end_of_my_course'], 'should_take' => $data['should_take'], 'students_need' => $data['students_need']);
 
         $courses = Course::create($course);
 
@@ -102,10 +106,6 @@ class CourseController extends BaseController
             'ordering' => 'required',
             'trial_video' => 'required',
 
-            // 'title_lecture'    => 'required',
-            // 'description_lecture'    => 'required',
-            // 'ordering_lecture' => 'required',
-            // 'video_lecture' => 'required',
         ];
         $validator = Validator::make($data, $rules);
         $error_msg = $validator->errors()->first();
@@ -124,36 +124,93 @@ class CourseController extends BaseController
             }
         }
     }
-    //================ subject get data====================//
-    // public function subject_get_data(Request $request)
-    // {
-    //     $categories = Subject::with('categories')->get();
+    //================ add_lecture data====================//
+    public function add_lecture(Request $request)
+    {
+        $data = $request->all();
+        $rules = [
+            'course_id'    => 'required',
+            'course_sections_id'    => 'required',
+            'title'    => 'required',
+            'description'    => 'required',
+            'ordering' => 'required',
+            'file' => 'required',
+        ];
+        $validator = Validator::make($data, $rules);
+        $error_msg = $validator->errors()->first();
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+            die();
+        } else {
 
-    //     // return $categories;
+            if ($request->file('file')) {
+                $imagePath = $request->file('file');
+                $file = time() . '.' . $imagePath->getClientOriginalName();
+                $destinationPath = public_path('/images/video');
+                $imagePath->move($destinationPath, $file);
+                $file = $file;
+            } else {
+                $file = '';
+            }
 
-    //     if ($categories) {
+            $lecture = array('course_id' => $data['course_id'], 'course_sections_id' => $data['course_sections_id'], 'title' => $data['title'], 'description' => $data['description'], 'ordering' => $data['ordering'], 'file' => $file);
+            $section = Lecture::create($lecture);
 
-    //         return $this->sendResponse(SubjectlistResource::collection($categories), 'subject retrieved successfully.');
-    //         die();
-    //     } else {
-    //         return $this->sendError('Validation Error.', $validator->errors());
+            if ($section) {
+                return $this->sendResponse(new LectureResource($section), ' Section register successfully.');
+                die();
+            } else {
+                return $this->sendError('Validation Error.', $validator->errors());
+                die();
+            }
+        }
+    }
+    //================ course_coupon data====================//
+    public function course_coupon(Request $request)
+    {
+        $data = $request->all();
+        $rules = [
+            'course_id'    => 'required',
+            'name'    => 'required',
+            'name'    => 'required',
+            'maximum_number' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'money_discount' => 'required',
 
-    //         die();
-    //     }
-    // }
+        ];
+        $validator = Validator::make($data, $rules);
+        $error_msg = $validator->errors()->first();
+        if ($validator->fails()) {
+            return $this->sendError('Validation Error.', $validator->errors());
+            die();
+        } else {
 
-    // // =================== subject_edit ========================//
-    // public function subject_edit($id)
-    // {
 
-    //     $categories = Subject::with('categories')->find($id);
-    //     //return $categories;
 
-    //     if (is_null($categories)) {
-    //         return $this->sendError('data not found.');
-    //     }
-    //     return response()->json(array('status' => 'true', 'data' => $categories, 'message' => 'Data get Successfully'));
-    // }
+            $coupons = array('course_id' => $data['course_id'],'name' => $data['name'], 'coupon_code' => $data['coupon_code'],'maximum_number' => $data['maximum_number'], 'start_date' => $data['start_date'], 'end_date' => $data['end_date'], 'money_discount' => $data['money_discount']);
+            $coupon = Course_coupons::create($coupons);
+
+            if ($coupon) {
+                return $this->sendResponse(new CourseCouponResource($coupon), ' Section register successfully.');
+                die();
+            } else {
+                return $this->sendError('Validation Error.', $validator->errors());
+                die();
+            }
+        }
+    }
+    // =================== get_course ========================//
+    public function get_course()
+    {
+
+        $course = Course::with('user','sections')->get();
+        //$section = Course::with('sections')->get();
+
+return  $course;
+
+        //return response()->json(array('status' => 'true', 'data' => $categories, 'message' => 'Data get Successfully'));
+    }
 
     // public function subject_update_data(Request $request)
     // {
